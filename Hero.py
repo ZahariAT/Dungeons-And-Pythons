@@ -5,8 +5,8 @@ class Hero:
         self.health = health
         self.mana = mana
         self.mana_regeneration_rate = mana_regeneration_rate
-        self.currenthealt = self.health
-        self.currentMana = self.mana   
+        self.current_health = self.health
+        self.current_mana = self.mana   
 
     def known_as(self):
         return "{0} the {1}".format(self.name,self.title)
@@ -30,8 +30,10 @@ class Hero:
         return False
 
     def take_damage(self,damage):
-        self.health = self.health - damage
+        if(self.current_health - damage < 0):
+            self.current_health = 0
 
+        self.current_health = self.current_health - damage
 
 
 
@@ -39,4 +41,30 @@ class Hero:
         if(self.currentHealth == 0):
             return False    
 
-        if(self.health + healing) 
+        if(self.current_health + healing > self.health):
+            self.current_health = self.health
+
+
+    def take_mana(self,mana_points):
+        #to impelemnt increasing of mana when hero moves
+        
+
+
+        if(self.current_mana + mana_points > self.mana):
+            self.current_mana = self.mana
+
+
+        self.current_mana = self.current_mana + mana_points
+
+
+
+
+
+    def equip(self,weapon):
+        pass
+
+    def learn(self,spell):
+        pass
+
+    def attack(self,):
+        pass
