@@ -6,12 +6,7 @@ class Enemy(BaseClass):
 
         BaseClass.__init__(self,health,mana)
         self.damage = damage
-
-
-en = Enemy(100,20,20)
-
-print(en.is_alive())
-
+        
 
 
 
