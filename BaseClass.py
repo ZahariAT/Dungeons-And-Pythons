@@ -14,7 +14,6 @@ class BaseClass:
     def is_alive(self):
         if(self.health > 0):
             return True
-
         return False
 
     def can_cast(self):
@@ -26,7 +25,6 @@ class BaseClass:
     def take_damage(self,damage):
         if(self.current_health - damage < 0):
             self.current_health = 0
-
         self.current_health = self.current_health - damage
 
 
@@ -34,7 +32,6 @@ class BaseClass:
     def take_healing(self,healing):
         if(self.currentHealth == 0):
             return False    
-
         if(self.current_health + healing > self.health):
             self.current_health = self.health
 
