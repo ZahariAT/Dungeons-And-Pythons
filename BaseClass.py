@@ -4,15 +4,38 @@ class BaseClass:
         self.mana = mana
         self.current_health = self.health
         self.current_mana = self.mana
+        self.weapon = None
+        self.magic = None
+   
+
+    def attack(self,s):
+        if(s == "weapon"):
+            if(self.weapon == None):
+                return "The Hero doesn't have any weapon"
+            else:
+                return self.weapon.damage
+        elif(s == "spell"):
+            if(self.magic == None):
+                return "The Hero doesn't "
+
+            else:
+                return self.magic.damage
+
+    def equip(self,weapon):
+        self.weapon = weapon
+
+    def learn(self,spell):
+        self.spell = spell
+
 
     def get_health(self):
-        return self.health
+        return self.current_health
 
     def get_mana(self):
-        return self.mana
+        return self.current_mana
 
     def is_alive(self):
-        if(self.health > 0):
+        if(self.current_health > 0):
             return True
         return False
 
@@ -25,15 +48,16 @@ class BaseClass:
     def take_damage(self,damage):
         if(self.current_health - damage < 0):
             self.current_health = 0
-        self.current_health = self.current_health - damage
+        else:
+            self.current_health = self.current_health - damage
 
 
 
     def take_healing(self,healing):
-        if(self.currentHealth == 0):
+        if(self.current_health == 0):
+            print("Hero is dead")
             return False    
         if(self.current_health + healing > self.health):
             self.current_health = self.health
-
 
 

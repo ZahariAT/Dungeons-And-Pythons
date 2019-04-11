@@ -1,9 +1,27 @@
 from Hero import Hero
+from Weaponclass import Weapon
+from Spell import Spell
+from random import *
+
+
 
 class Dungeon:
     def __init__(self,file_name):
         self.file_name = file_name
         self.map = []
+        self.lst_treasures = []
+        self.hero = None
+
+    def create_treasure(self):
+        count = 0
+        for lst in self.map:
+            for el in lst:
+                if(el == "T"):
+                    count +=1
+        for num in range(count):
+            rand_number = randint(1,4)
+            if(rand_number == 1):
+                pass
     def print_map(self):
         f = open(self.file_name,"r")
         matrix = []
@@ -19,6 +37,9 @@ class Dungeon:
             for el in lst:
                 print(el,end = "")          
     def spawn(self,hero):
+        if(self.hero == None):
+
+            self.hero = hero
         check_is_there_starting_point = False
         for index,lst in enumerate(self.map):
             for ind,el in enumerate(lst):
@@ -79,20 +100,22 @@ class Dungeon:
             print("There is obstacle")
             return
         elif(self.map[new_cordY][new_cordX] == "T"):
-
+            pass
         elif(self.map[new_cordY][new_cordX] == "G"):
-
+            pass
         elif(self.map[new_cordY][new_cordX] == "E"):
+            pass
 
-        
-d = Dungeon("level1.txt")
+
+        self.hero.mana += self.hero.mana_regeneration_rate
+
 h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
-
-d.print_map()
-d.spawn(h)
-d.print_map()
-d.move_hero("right")
-
-d.move_hero("up")
-
-d.move_hero("down")
+w = Weapon(name="The Axe of Destiny", damage=20)
+h.equip(w)
+s = Spell(name="Fireball", damage=30, mana_cost=50)
+h.learn(s)
+map = Dungeon("level1.txt")
+map.spawn(h)
+map.print_map()
+map.move_hero("right")
+map.move_hero("down")
