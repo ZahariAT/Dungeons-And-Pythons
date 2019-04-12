@@ -11,12 +11,10 @@ class Hero(BaseClass):
     def known_as(self):
         return "{0} the {1}".format(self.name,self.title)
 
-    
 
     def take_mana(self,mana_points):
         #to impelemnt increasing of mana when hero moves
         
-
 
         if(self.current_mana + mana_points > self.mana):
             self.current_mana = self.mana
@@ -26,3 +24,7 @@ class Hero(BaseClass):
             self.current_mana = self.current_mana + mana_points
 
 
+
+    def __str__(self):
+        s = super().__str__()
+        return s + self.spell.__str__() + self.weapon.__str__()

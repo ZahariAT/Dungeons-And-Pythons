@@ -74,7 +74,8 @@ class Dungeon:
         if(not check_is_there_starting_point):
             print ("There not any more spawning points")
             return 
-
+    def hero_attack(self):
+        pass
     def move_hero(self,direction):
         old_cordX = 0
         old_cordY = 0 
@@ -122,32 +123,38 @@ class Dungeon:
             return
         elif(self.map[new_cordY][new_cordX] == "T"):
             rand_number = randint(0,len(all_treasures) - 1)
+            print(rand_number)
             if(not len(all_treasures[rand_number]) == 2 or not len(all_treasures[rand_number]) == 4):
                 if("Health" in all_treasures[rand_number]):
                     self.hero.current_health = self.hero.health
-
+                    print("The hero's health is full")
                 else:
                     self.hero.current_mana = self.hero.mana
-
+                    print("The hero's mana is full")
             elif(len(all_treasures[rand_number] == 2)):
                 weap = Weapon(all_treasures[rand_number][0],all_treasures[rand_number][1])
                 self.hero.weapon = weap
+
+                print("hero has new weapon")
             elif(len(all_treasures[rand_number] == 4)):
                 sp = Spell(all_treasures[rand_number][0],all_treasures[rand_number][1],all_treasures[rand_number][2],all_treasures[rand_number][3])
                 self.hero.spell = sp
-
+                print("hero has new spell")
             else:
                 print("Not correct")
                 return
 
             self.map[new_cordY][new_cordX] = "H"
+            self.map[old_cordY][old_cordX] = "."
         elif(self.map[new_cordY][new_cordX] == "G"):
-            pass
+            print("The hero have reached the final of this level!")
+            return
         elif(self.map[new_cordY][new_cordX] == "E"):
             pass
 
+        if(self.hero.current_mana < self.hero.mana):
 
-        self.hero.mana += self.hero.mana_regeneration_rate
+            self.hero.current_mana += self.hero.mana_regeneration_rate
 
 h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
 w = Weapon(name="The Axe of Destiny", damage=20)
@@ -158,14 +165,12 @@ s = Spell(name="Fireball", damage=30, mana_cost=50, cast_range=2)
 h.learn(s)
 map.spawn(h)
 map.print_map()
-
 map.move_hero("right")
 map.print_map()
-map.move_hero("down")
-map.print_map()
-'''
 
-map.print_map()
-map.move_hero("right")
 map.move_hero("down")
-'''
+map.print_map()
+print(map.hero)
+map.move_hero("down")
+map.print_map()
+print(map.hero)

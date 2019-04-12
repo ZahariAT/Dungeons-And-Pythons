@@ -31,6 +31,10 @@ class BaseClass:
                     self.current_mana -= self.spell.mana_cost
                     return self.spell.damage
                         
+
+
+    def __str__(self):
+        return str((self.health, self.mana, self.current_health,self.current_mana,self.weapon,self.spell))
     def equip(self,weapon):
         self.weapon = weapon
 
