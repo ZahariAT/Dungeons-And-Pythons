@@ -21,7 +21,18 @@ class Dungeon:
         for num in range(count):
             rand_number = randint(1,4)
             if(rand_number == 1):
-                pass
+                self.lst_treasures.append("Mana potion")
+            elif(rand_number == 2):
+                self.lst_treasures.append("Health potion")
+
+            elif(rand_number == 3):
+                weapone_names = ["The Axe of Destiny", "Holy Carver","Blade of a Thousand Cuts","Fallen Champion"]
+                weapon = Weapon(weapone_names[randint(1,len(weapone_names))],randint(1,self.hero.health))
+                self.lst_treasures.append(weapon)
+            else:
+                spell_names = ["Expecto Patronum", "Accio","Wingardium Leviosa","Expelliarmus"]
+                spell = Weapon(spell_names[randint(1,len(spell_names))],randint(1,self.hero.mana))
+                self.lst_treasures.append(spell)
     def print_map(self):
         f = open(self.file_name,"r")
         matrix = []
@@ -51,12 +62,9 @@ class Dungeon:
             print ("There not any more spawning points")
             return 
 
-        for lst in self.map:
-            for el in lst:
-                print(el,end = "")
     def move_hero(self,direction):
         old_cordX = 0
-        old_cordY = 0
+        old_cordY = 0 
         for index,lst in enumerate(self.map):
 
             for ind,el in enumerate(lst):
@@ -115,7 +123,18 @@ h.equip(w)
 s = Spell(name="Fireball", damage=30, mana_cost=50)
 h.learn(s)
 map = Dungeon("level1.txt")
+map.print_map()
 map.spawn(h)
 map.print_map()
 map.move_hero("right")
+map.print_map()
 map.move_hero("down")
+map.print_map()
+
+
+'''
+
+map.print_map()
+map.move_hero("right")
+map.move_hero("down")
+'''

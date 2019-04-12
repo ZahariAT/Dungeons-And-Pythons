@@ -6,7 +6,8 @@ class Enemy(BaseClass):
 
         BaseClass.__init__(self,health,mana)
         self.damage = damage
-        
+        self.cord_x = None
+        self.cord_Y = None
 
 
 

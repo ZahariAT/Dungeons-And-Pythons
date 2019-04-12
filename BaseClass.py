@@ -5,7 +5,7 @@ class BaseClass:
         self.current_health = self.health
         self.current_mana = self.mana
         self.weapon = None
-        self.magic = None
+        self.spell = None
    
 
     def attack(self,s):
@@ -15,7 +15,7 @@ class BaseClass:
             else:
                 return self.weapon.damage
         elif(s == "spell"):
-            if(self.magic == None):
+            if(self.spell== None):
                 return "The Hero doesn't "
 
             else:
