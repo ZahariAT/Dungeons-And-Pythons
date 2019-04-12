@@ -142,9 +142,11 @@ class Dungeon:
         else:
             tuple_spell = all_treasures[randint(6, len(all_treasures) - 1)]
             if len(tuple_spell)  == 4:
-                random_enemy = Enemy(tuple_enemy[0], tuple_enemy[1], tuple_enemy[2], Spell(tuple_spell[0], tuple_spell[1], tuple_spell[2], tuple_spell[3]))
+                random_enemy = Enemy(tuple_enemy[0], tuple_enemy[1], tuple_enemy[2])
+                random_enemy.learn(Spell(tuple_spell[0], tuple_spell[1], tuple_spell[2], tuple_spell[3]))
             else:
-                random_enemy = Enemy(tuple_enemy[0], tuple_enemy[1], tuple_enemy[2], Weapon(tuple_spell[0], tuple_spell[1]))
+                random_enemy = Enemy(tuple_enemy[0], tuple_enemy[1], tuple_enemy[2])
+                random_enemy.equip(Weapon(tuple_spell[0], tuple_spell[1]))
 
         def can_attack(cast_range):
             i = 0
