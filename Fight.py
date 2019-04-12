@@ -12,7 +12,7 @@ class Fight:
             if hero.spell != None:
                 if hero.can_cast():
                     hero.attack('spell')
-                    enemy.take_damage(hero.spell.spell_damage)
+                    enemy.take_damage(hero.spell.damage)
                 else:
                     hero.spell = None
             elif hero.weapon != None:
@@ -21,13 +21,14 @@ class Fight:
             else:
                 print('Hero is not equipt.')
             if enemy.is_alive():
-                if hero.spell.cast_range > 0 and hero.spell != None:
-                    hero.spell.cast_range -= 1
+                if hero.spell != None:
+                    if(hero.spell.cast_range > 0):  
+                        hero.spell.cast_range -= 1
                 else:
                     if enemy.spell != None:
                         if enemy.can_cast():
                             enemy.attack('spell')
-                            hero.take_damage(enemy.spell.spell_damage)
+                            hero.take_damage(enemy.spell.damage)
                         else:
                             enemy.spell = None
                     elif enemy.weapon != None:

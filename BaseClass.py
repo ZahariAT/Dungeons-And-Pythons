@@ -6,6 +6,8 @@ class BaseClass:
         self.current_mana = self.mana
         self.weapon = None
         self.spell = None
+        self.coord_X = None
+        self.coord_Y = None 
    
 
     def attack(self,s):
@@ -16,11 +18,19 @@ class BaseClass:
                 return self.weapon.damage
         elif(s == "spell"):
             if(self.spell== None):
-                return "The Hero doesn't "
+                raise Exception("The Hero doesn't have any spell")
+                return 0
 
             else:
-                return self.magic.damage
-
+                
+                if(not self.can_cast()):
+                    
+                    print("Not enough mana for spell")
+                    return 
+                else:
+                    self.current_mana -= self.spell.mana_cost
+                    return self.spell.damage
+                        
     def equip(self,weapon):
         self.weapon = weapon
 
@@ -40,7 +50,7 @@ class BaseClass:
         return False
 
     def can_cast(self):
-        if(self.mana > 0):
+        if(self.current_mana >= self.spell.mana_cost):
             return True
 
         return False

@@ -2,6 +2,14 @@ from Hero import Hero
 from Weaponclass import Weapon
 from Spell import Spell
 from random import *
+from Fight import Fight
+from Enemy import Enemy
+
+
+all_treasures = ["Mana potion","Health potion",("Expecto Patronum",40,50,3),("The Axe of Destiny",30),
+"Mana potion","Health potion",("Accio",20,30,2),("Holy Carver",20),
+"Mana potion","Health potion",("Wingardium Leviosa",30,40,1),("Blade of a Thousand Cuts",40)]
+
 
 
 
@@ -12,6 +20,14 @@ class Dungeon:
         self.lst_treasures = []
         self.hero = None
 
+        f = open(self.file_name,"r")
+        
+        for line in f:
+            lst = list(line)
+            self.map.append(lst)
+
+
+    '''
     def create_treasure(self):
         count = 0
         for lst in self.map:
@@ -26,20 +42,17 @@ class Dungeon:
                 self.lst_treasures.append("Health potion")
 
             elif(rand_number == 3):
-                weapone_names = ["The Axe of Destiny", "Holy Carver","Blade of a Thousand Cuts","Fallen Champion"]
-                weapon = Weapon(weapone_names[randint(1,len(weapone_names))],randint(1,self.hero.health))
+                weapon_names = ["The Axe of Destiny", "Holy Carver","Blade of a Thousand Cuts","Fallen Champion"]
+                weapon = Weapon(weapon_names[randint(1,len(weapon_names))],randint(1,self.hero.health))
                 self.lst_treasures.append(weapon)
             else:
-                spell_names = ["Expecto Patronum", "Accio","Wingardium Leviosa","Expelliarmus"]
+                spell_names = ["Expecto Patronum", "Accio","Wingardium Leviosa","Expelliarmus", "Avadakedavra", "Sectumsempra","Obliviate","Riddikulus"]
                 spell = Weapon(spell_names[randint(1,len(spell_names))],randint(1,self.hero.mana))
                 self.lst_treasures.append(spell)
-    def print_map(self):
-        f = open(self.file_name,"r")
-        matrix = []
-        for line in f:
-            lst = list(line)
-            matrix.append(lst)
 
+
+                '''
+    def print_map(self):
         if(len(self.map) == 0):
             self.map = matrix
         
@@ -108,7 +121,26 @@ class Dungeon:
             print("There is obstacle")
             return
         elif(self.map[new_cordY][new_cordX] == "T"):
-            pass
+            rand_number = randint(0,len(all_treasures) - 1)
+            if(not len(all_treasures[rand_number]) == 2 or not len(all_treasures[rand_number]) == 4):
+                if("Health" in all_treasures[rand_number]):
+                    self.hero.current_health = self.hero.health
+
+                else:
+                    self.hero.current_mana = self.hero.mana
+
+            elif(len(all_treasures[rand_number] == 2)):
+                weap = Weapon(all_treasures[rand_number][0],all_treasures[rand_number][1])
+                self.hero.weapon = weap
+            elif(len(all_treasures[rand_number] == 4)):
+                sp = Spell(all_treasures[rand_number][0],all_treasures[rand_number][1],all_treasures[rand_number][2],all_treasures[rand_number][3])
+                self.hero.spell = sp
+
+            else:
+                print("Not correct")
+                return
+
+            self.map[new_cordY][new_cordX] = "H"
         elif(self.map[new_cordY][new_cordX] == "G"):
             pass
         elif(self.map[new_cordY][new_cordX] == "E"):
@@ -119,19 +151,18 @@ class Dungeon:
 
 h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
 w = Weapon(name="The Axe of Destiny", damage=20)
-h.equip(w)
-s = Spell(name="Fireball", damage=30, mana_cost=50)
-h.learn(s)
 map = Dungeon("level1.txt")
+
 map.print_map()
+s = Spell(name="Fireball", damage=30, mana_cost=50, cast_range=2)
+h.learn(s)
 map.spawn(h)
 map.print_map()
+
 map.move_hero("right")
 map.print_map()
 map.move_hero("down")
 map.print_map()
-
-
 '''
 
 map.print_map()
