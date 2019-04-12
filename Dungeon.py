@@ -161,40 +161,28 @@ class Dungeon:
                     break
             if self.map[y][x] == "H":
                 break
+        def can_attack(cast_range):
+            i = 0
+            while i <= cast_range:
+                if self.map[y][x + i] == 'E':
+                    Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'left')
+                    return True
+                elif self.map[y + i][x] == 'E':
+                    Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'up')
+                    return True
+                elif self.map[y][x - i] == 'E':
+                    Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'right')
+                    return True
+                elif self.map[y - i][x] == 'E':
+                    Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'down')
+                    return True
+                i += 1
+            print('No enemy within range')
+            return False
+        cast_range = 0
         if self.hero.spell != None:
             cast_range = self.hero.spell.cast_range
-            i = 0
-            while i != cast_range:
-                if self.map[y][x + i] == 'E':
-                    Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'right')
-                    return
-                elif self.map[y + i][x] == 'E':
-                    Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'down')
-                    return
-                elif self.map[y][x - i] == 'E':
-                    Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'left')
-                    return
-                elif self.map[y - i][x] == 'E':
-                    Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'up')
-                    return
-                i += 1
-            print('No enemy within spell range')
-            return
-        i = 0
-        if self.map[y][x] == 'E':
-            Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, None)
-            return
-        elif self.map[y + i][x] == 'E':
-            Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, None)
-            return
-        elif self.map[y][x - i] == 'E':
-            Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, None)
-            return
-        elif self.map[y - i][x] == 'E':
-            Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, None)
-            return
-        print('No enemy within range')
-        return
+        can_attack(cast_range)
 
 h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
 w = Weapon(name="The Axe of Destiny", damage=20)

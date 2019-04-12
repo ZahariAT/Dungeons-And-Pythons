@@ -54,9 +54,10 @@ class BaseClass:
         return False
 
     def can_cast(self):
-        if(self.current_mana >= self.spell.mana_cost):
-            return True
-
+        if self.spell != None:
+            if(self.current_mana >= self.spell.mana_cost):
+                return True
+            self.spell = None
         return False
 
     def take_damage(self,damage):
