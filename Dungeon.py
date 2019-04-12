@@ -143,24 +143,30 @@ class Dungeon:
             i = 0
             while i <= cast_range:
                 if self.map[y][x + i] == 'E':
-                    Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'left')
-                    return True
+                    if Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'left'):
+                        return (y, x + i)
+                    return False
                 elif self.map[y + i][x] == 'E':
-                    Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'up')
-                    return True
+                    if Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'up'):
+                        return (y + i, x)
+                    return False
                 elif self.map[y][x - i] == 'E':
-                    Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'right')
-                    return True
+                    if Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'right'):
+                        return (y, x - i)
+                    return False
                 elif self.map[y - i][x] == 'E':
-                    Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'down')
-                    return True
+                    if Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'down'):
+                         return (y - i, x)
+                    return False
                 i += 1
             print('No enemy within range')
             return False
         cast_range = 0
         if self.hero.spell != None:
             cast_range = self.hero.spell.cast_range
-        can_attack(cast_range)
+        dot =  can_attack(cast_range)
+        if dot:
+            self.map[dot[0]][dot[1]] = '.'
 
 h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
 w = Weapon(name="The Axe of Destiny", damage=20)

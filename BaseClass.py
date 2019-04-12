@@ -57,7 +57,6 @@ class BaseClass:
         if self.spell != None:
             if(self.current_mana >= self.spell.mana_cost):
                 return True
-            self.spell = None
         return False
 
     def take_damage(self,damage):

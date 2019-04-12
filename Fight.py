@@ -24,8 +24,7 @@ class Fight:
             else:
                 print('Hero is not equipt.')
             if enemy.is_alive():
-                if hero.spell != None:
-                    print(attack_range)
+                if hero.can_cast():
                     if attack_range >= 1:  
                         attack_range -= 1
                         print('Enemy moved one step to the {}'.format(direction))
@@ -51,3 +50,6 @@ class Fight:
                     print('Enemy attacked!')
             else:
                 print('Enemy is dead')
+                return True
+        print('Hero is dead :( ')
+        return False
