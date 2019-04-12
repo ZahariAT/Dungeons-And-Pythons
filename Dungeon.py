@@ -146,6 +146,8 @@ class Dungeon:
 
             self.map[new_cordY][new_cordX] = "H"
             self.map[old_cordY][old_cordX] = "."
+            self.coord_X = new_cordX
+            self.coord_Y = new_cordY
         elif(self.map[new_cordY][new_cordX] == "G"):
             print("The hero have reached the final of this level!")
             return
