@@ -8,46 +8,35 @@ class Fight:
     def fight_simulator(hero, enemy, attack_range, direction):
         if type(hero) != Hero or type(enemy) != Enemy:
             raise ValueError("Those types can't fight!")
-        while hero.is_alive() and enemy.is_alive():
-            if hero.can_cast():
-                if hero.can_cast():
-                    hero.attack('spell')
-                    enemy.take_damage(hero.spell.damage)
-                else:
-                    hero.spell = None
-                print('Hero attacked by spell!')
+        def spell_or_weapon(attacker, defender):
+            if attacker.can_cast():
+                attacker.attack('spell')
+                defender.take_damage(attacker.spell.damage)
+                print('{} attacked with {}!'.format(type(attacker).__name__, attacker.spell.name))
+                return True
+            elif attacker.weapon != None:
+                attacker.attack('weapon')
+                defender.take_damage(attacker.weapon.damage)
+                print('{} attacked with {}!'.format(type(attacker).__name__, attacker.weapon.name))
+                return True
+            return False
 
-            elif hero.weapon != None:
-                hero.attack('weapon')
-                enemy.take_damage(hero.weapon.damage)
-                print('Hero attacked!')
-            else:
+        while hero.is_alive() and enemy.is_alive():
+            if not spell_or_weapon(hero, enemy):
                 print('Hero is not equipt.')
             if enemy.is_alive():
-                if hero.can_cast():
+                if hero.can_cast() and not enemy.can_cast():
                     if attack_range >= 1:  
                         attack_range -= 1
                         print('Enemy moved one step to the {}'.format(direction))
                     else:
-                        if enemy.can_cast():
-                            enemy.attack('spell')
-                            hero.take_damage(enemy.spell.damage)
-                        elif enemy.weapon != None:
-                            enemy.attack('weapon')
-                            hero.take_damage(enemy.weapon.damage)
-                        else:
+                        if not spell_or_weapon(enemy, hero):
                             hero.take_damage(enemy.damage)
-                        print('Enemy attacked!')
+                            print('Enemy attacked!')
                 else:
-                    if enemy.can_cast():
-                        enemy.attack('spell')
-                        hero.take_damage(enemy.spell.damage)
-                    elif enemy.weapon != None:
-                        enemy.attack('weapon')
-                        hero.take_damage(enemy.weapon.damage)
-                    else:
+                    if not spell_or_weapon(enemy, hero):
                         hero.take_damage(enemy.damage)
-                    print('Enemy attacked!')
+                        print('Enemy attacked!')
             else:
                 print('Enemy is dead')
                 return True

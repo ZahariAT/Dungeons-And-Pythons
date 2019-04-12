@@ -11,9 +11,7 @@ all_treasures = ["Mana potion","Health potion",("Expecto Patronum",40,50,3),("Th
 "Mana potion","Health potion",("Wingardium Leviosa",30,40,1),("Blade of a Thousand Cuts",40)]
 
 
-enemies = [(130,40,50),(150,20,30),(111,100,40),(170,120,40),(160,80,30,Spell("lol",30,50,1))]
-
-
+enemies = [(130,40,20),(110,20,30),(111,100,40),(170,120,10),(160,80,30)]
 
 
 class Dungeon:
@@ -139,23 +137,33 @@ class Dungeon:
                     break
             if self.map[y][x] == "H":
                 break
+        tuple_enemy = enemies[randint(0, len(enemies) - 1)]
+        if randint(0, 10) < 8:
+            random_enemy = Enemy(tuple_enemy[0], tuple_enemy[1], tuple_enemy[2])
+        else:
+            tuple_spell = all_treasures[randint(2, len(all_treasures) - 1)]
+            if len(tuple_spell)  == 4:
+                random_enemy = Enemy(tuple_enemy[0], tuple_enemy[1], tuple_enemy[2], Spell(tuple_spell[0], tuple_spell[1], tuple_spell[2], tuple_spell[3]))
+            else:
+                random_enemy = Enemy(tuple_enemy[0], tuple_enemy[1], tuple_enemy[2], Weapon(tuple_spell[0], tuple_spell[1]))
+
         def can_attack(cast_range):
             i = 0
             while i <= cast_range:
                 if self.map[y][x + i] == 'E':
-                    if Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'left'):
+                    if Fight().fight_simulator(self.hero, random_enemy, i, 'left'):
                         return (y, x + i)
                     return False
                 elif self.map[y + i][x] == 'E':
-                    if Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'up'):
+                    if Fight().fight_simulator(self.hero, random_enemy, i, 'up'):
                         return (y + i, x)
                     return False
                 elif self.map[y][x - i] == 'E':
-                    if Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'right'):
+                    if Fight().fight_simulator(self.hero, random_enemy, i, 'right'):
                         return (y, x - i)
                     return False
                 elif self.map[y - i][x] == 'E':
-                    if Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'down'):
+                    if Fight().fight_simulator(self.hero, random_enemy, i, 'down'):
                          return (y - i, x)
                     return False
                 i += 1
@@ -188,3 +196,14 @@ print(h)
 map.move_hero("right")
 print(h)
 map.print_map()
+map.move_hero("right")
+map.move_hero("down")
+map.move_hero("up")
+map.print_map()
+map.move_hero("right")
+map.move_hero("right")
+map.move_hero("up")
+map.move_hero("up")
+map.print_map()
+map.hero_attack(by="spell")
+print(h)
