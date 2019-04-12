@@ -15,17 +15,12 @@ all_treasures = ["Mana potion","Health potion",("Expecto Patronum",40,50,3),("Th
 
 class Dungeon:
     def __init__(self,file_name):
+        self.map = []
         with open(file_name) as f:
-            self.map = f.readlines()
-        self.file_name = file_name
+            for line in f.readlines():
+                self.map.append(list(line))
         self.lst_treasures = []
         self.hero = None
-
-        f = open(self.file_name,"r")
-        
-        for line in f:
-            lst = list(line)
-            self.map.append(lst)
 
 
     '''
@@ -159,6 +154,30 @@ class Dungeon:
 
             self.hero.current_mana += self.hero.mana_regeneration_rate
 
+    def hero_attack(self, by=None):
+        for y, order in enumerate(self.map):
+            for x in range(len(order)):
+                if self.map[y][x] == 'H':
+                    break
+            if self.map[y][x] == "H":
+                break
+        if self.hero.spell != None:
+            cast_range = self.hero.spell.cast_range
+            i = 0
+            while i != cast_range:
+                if self.map[y][x + i] == 'E':
+                    Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'right')
+                    break
+                elif self.map[y + i][x] == 'E':
+                    Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'down')
+                    break
+                elif self.map[y][x - i] == 'E':
+                    Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'left')
+                    break
+                elif self.map[y - i][x] == 'E':
+                    Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'up')
+                    break
+
 h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
 w = Weapon(name="The Axe of Destiny", damage=20)
 map = Dungeon("level1.txt")
@@ -177,3 +196,5 @@ print(map.hero)
 map.move_hero("down")
 map.print_map()
 print(map.hero)
+
+map.hero_attack()
