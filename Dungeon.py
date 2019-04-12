@@ -127,7 +127,14 @@ class Dungeon:
             print("The hero have reached the final of this level!")
             return
         elif(self.map[new_cordY][new_cordX] == "E"):
-            pass
+            self.hero_attack()
+            if(self.hero.is_alive()):
+                self.map[new_cordY][new_cordX] = "H"
+                self.map[old_cordY][old_cordX] = "."
+                
+            else:
+                print("Game Over. Hero died")
+            
 
         if(self.hero.current_mana < self.hero.mana):
 
@@ -192,26 +199,8 @@ map.print_map()
 map.move_hero("right")
 map.move_hero("down")
 map.print_map()
-map.hero_attack(by="spell")
 map.move_hero("down")
 map.move_hero("down")
-map.print_map()
-map.hero_attack(by="spell")
-print(h)
 map.move_hero("right")
-print(h)
 map.print_map()
 map.move_hero("right")
-map.move_hero("down")
-map.move_hero("up")
-map.print_map()
-map.move_hero("right")
-map.move_hero("right")
-map.move_hero("up")
-map.move_hero("up")
-map.print_map()
-map.hero_attack(by="spell")
-map.print_map()
-map.hero_attack("right")
-map.spawn(h)
-print(h)
