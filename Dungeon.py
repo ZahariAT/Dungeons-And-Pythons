@@ -167,34 +167,52 @@ class Dungeon:
             while i != cast_range:
                 if self.map[y][x + i] == 'E':
                     Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'right')
-                    break
+                    return
                 elif self.map[y + i][x] == 'E':
                     Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'down')
-                    break
+                    return
                 elif self.map[y][x - i] == 'E':
                     Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'left')
-                    break
+                    return
                 elif self.map[y - i][x] == 'E':
                     Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, 'up')
-                    break
+                    return
+                i += 1
+            print('No enemy within spell range')
+            return
+        i = 0
+        if self.map[y][x] == 'E':
+            Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, None)
+            return
+        elif self.map[y + i][x] == 'E':
+            Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, None)
+            return
+        elif self.map[y][x - i] == 'E':
+            Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, None)
+            return
+        elif self.map[y - i][x] == 'E':
+            Fight().fight_simulator(self.hero, Enemy(100, 100, 20), i, None)
+            return
+        print('No enemy within range')
+        return
 
 h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
 w = Weapon(name="The Axe of Destiny", damage=20)
-map = Dungeon("level1.txt")
-
-map.print_map()
+h.equip(w)
 s = Spell(name="Fireball", damage=30, mana_cost=50, cast_range=2)
 h.learn(s)
+map = Dungeon("level1.txt")
 map.spawn(h)
 map.print_map()
 map.move_hero("right")
-map.print_map()
-
 map.move_hero("down")
 map.print_map()
-print(map.hero)
+map.hero_attack(by="spell")
+map.move_hero("down")
 map.move_hero("down")
 map.print_map()
-print(map.hero)
-
-map.hero_attack()
+map.hero_attack(by="spell")
+print(h)
+map.move_hero("right")
+print(h)
+map.print_map()
