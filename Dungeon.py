@@ -15,8 +15,9 @@ all_treasures = ["Mana potion","Health potion",("Expecto Patronum",40,50,3),("Th
 
 class Dungeon:
     def __init__(self,file_name):
+        with open(file_name) as f:
+            self.map = f.readlines()
         self.file_name = file_name
-        self.map = []
         self.lst_treasures = []
         self.hero = None
 

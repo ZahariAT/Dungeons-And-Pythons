@@ -5,7 +5,7 @@ from Spell import Spell
 
 class Fight:
     @staticmethod
-    def fight_simulator(hero, enemy):
+    def fight_simulator(hero, enemy, attack_range):
         if type(hero) != Hero or type(enemy) != Enemy:
             raise ValueError("Those types can't fight!")
         while hero.is_alive() and enemy.is_alive():
@@ -22,8 +22,8 @@ class Fight:
                 print('Hero is not equipt.')
             if enemy.is_alive():
                 if hero.spell != None:
-                    if(hero.spell.cast_range > 0):  
-                        hero.spell.cast_range -= 1
+                    if attack_range > 0:  
+                        attack_range -= 1
                 else:
                     if enemy.spell != None:
                         if enemy.can_cast():
