@@ -11,6 +11,9 @@ all_treasures = ["Mana potion","Health potion",("Expecto Patronum",40,50,3),("Th
 "Mana potion","Health potion",("Wingardium Leviosa",30,40,1),("Blade of a Thousand Cuts",40)]
 
 
+enemies = [(130,40,50),(150,20,30),(111,100,40),(170,120,40),(160,80,30,Spell("lol",30,50,1))]
+
+
 
 
 class Dungeon:
@@ -23,31 +26,6 @@ class Dungeon:
         self.hero = None
 
 
-    '''
-    def create_treasure(self):
-        count = 0
-        for lst in self.map:
-            for el in lst:
-                if(el == "T"):
-                    count +=1
-        for num in range(count):
-            rand_number = randint(1,4)
-            if(rand_number == 1):
-                self.lst_treasures.append("Mana potion")
-            elif(rand_number == 2):
-                self.lst_treasures.append("Health potion")
-
-            elif(rand_number == 3):
-                weapon_names = ["The Axe of Destiny", "Holy Carver","Blade of a Thousand Cuts","Fallen Champion"]
-                weapon = Weapon(weapon_names[randint(1,len(weapon_names))],randint(1,self.hero.health))
-                self.lst_treasures.append(weapon)
-            else:
-                spell_names = ["Expecto Patronum", "Accio","Wingardium Leviosa","Expelliarmus", "Avadakedavra", "Sectumsempra","Obliviate","Riddikulus"]
-                spell = Weapon(spell_names[randint(1,len(spell_names))],randint(1,self.hero.mana))
-                self.lst_treasures.append(spell)
-
-
-                '''
     def print_map(self):
         if(len(self.map) == 0):
             self.map = matrix
