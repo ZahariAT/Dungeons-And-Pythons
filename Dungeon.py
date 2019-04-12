@@ -60,6 +60,10 @@ class Dungeon:
         print(old_cordY,old_cordX)
         new_cordX = old_cordX
         new_cordY = old_cordY
+
+
+        if(not self.hero.is_alive()):
+            return
         if(direction == "right"):
             new_cordX = old_cordX + 1
             if(new_cordX > len(self.map[0])):
@@ -207,4 +211,7 @@ map.move_hero("up")
 map.move_hero("up")
 map.print_map()
 map.hero_attack(by="spell")
+map.print_map()
+map.hero_attack("right")
+map.spawn(h)
 print(h)
