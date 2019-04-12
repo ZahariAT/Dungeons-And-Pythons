@@ -6,9 +6,8 @@ from Fight import Fight
 from Enemy import Enemy
 
 
-all_treasures = ["Mana potion","Health potion",("Expecto Patronum",40,50,3),("The Axe of Destiny",30),
-"Mana potion","Health potion",("Accio",20,30,2),("Holy Carver",20),
-"Mana potion","Health potion",("Wingardium Leviosa",30,40,1),("Blade of a Thousand Cuts",40)]
+all_treasures = ["Mana potion","Health potion","Mana potion","Health potion","Mana potion","Health potion",("Expecto Patronum",40,50,3),("The Axe of Destiny",30),
+("Accio",20,30,2),("Holy Carver",20),("Wingardium Leviosa",30,40,1),("Blade of a Thousand Cuts",40)]
 
 
 enemies = [(130,40,20),(110,20,30),(111,100,40),(170,120,10),(160,80,30)]
@@ -141,7 +140,7 @@ class Dungeon:
         if randint(0, 10) < 8:
             random_enemy = Enemy(tuple_enemy[0], tuple_enemy[1], tuple_enemy[2])
         else:
-            tuple_spell = all_treasures[randint(2, len(all_treasures) - 1)]
+            tuple_spell = all_treasures[randint(6, len(all_treasures) - 1)]
             if len(tuple_spell)  == 4:
                 random_enemy = Enemy(tuple_enemy[0], tuple_enemy[1], tuple_enemy[2], Spell(tuple_spell[0], tuple_spell[1], tuple_spell[2], tuple_spell[3]))
             else:
