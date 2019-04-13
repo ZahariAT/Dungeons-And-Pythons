@@ -36,15 +36,26 @@ class Dungeon:
 
             self.hero = hero
         check_is_there_starting_point = False
+        to_break = False
         for index,lst in enumerate(self.map):
             for ind,el in enumerate(lst):
                 if(el == "S"):
                     check_is_there_starting_point = True
                     self.map[index][ind] = "H"
+                    to_break = True
+            
+
+            if(to_break):
+                break
+
+
 
         if(not check_is_there_starting_point):
             print ("There not any more spawning points")
             return 
+
+
+
   
     def move_hero(self,direction):
         old_cordX = 0
@@ -90,28 +101,33 @@ class Dungeon:
             return False
 
         print(new_cordY,new_cordX)
+
+        if(self.map[old_cordY][old_cordX] == "S"):
         if(self.map[new_cordY][new_cordX] == "."):
             self.map[new_cordY][new_cordX] = "H"
             self.map[old_cordY][old_cordX] = "."
         elif(self.map[new_cordY][new_cordX] == "#"):
             print("There is obstacle")
             return
+        elif(self.map[new_cordY][new_cordX == "S"]):
+            #to finish
+            self.map[new_cordX][new_cordX] = "H"
         elif(self.map[new_cordY][new_cordX] == "T"):
             rand_number = randint(0,len(all_treasures) - 1)
             print(rand_number)
-            if(not len(all_treasures[rand_number]) == 2 or not len(all_treasures[rand_number]) == 4):
+            if(not len(all_treasures[rand_number]) == 2 and not len(all_treasures[rand_number]) == 4):
                 if("Health" in all_treasures[rand_number]):
                     self.hero.current_health = self.hero.health
                     print("The hero's health is full")
                 else:
                     self.hero.current_mana = self.hero.mana
                     print("The hero's mana is full")
-            elif(len(all_treasures[rand_number] == 2)):
+            elif(len(all_treasures[rand_number]) == 2):
                 weap = Weapon(all_treasures[rand_number][0],all_treasures[rand_number][1])
                 self.hero.weapon = weap
 
                 print("hero has new weapon")
-            elif(len(all_treasures[rand_number] == 4)):
+            elif(len(all_treasures[rand_number]) == 4):
                 sp = Spell(all_treasures[rand_number][0],all_treasures[rand_number][1],all_treasures[rand_number][2],all_treasures[rand_number][3])
                 self.hero.spell = sp
                 print("hero has new spell")
@@ -139,6 +155,8 @@ class Dungeon:
         if(self.hero.current_mana < self.hero.mana):
 
             self.hero.current_mana += self.hero.mana_regeneration_rate
+
+
 
     def hero_attack(self, by=None):
         for y, order in enumerate(self.map):
@@ -216,10 +234,6 @@ map.spawn(h)
 map.print_map()
 map.move_hero("right")
 map.print_map()
-map.move_hero("right")
-map.print_map()
-map.move_hero("down")
-map.print_map()
 map.move_hero("down")
 map.print_map()
 map.move_hero("down")
@@ -229,3 +243,8 @@ map.print_map()
 map.move_hero("right")
 map.print_map()
 map.move_hero("right")
+map.print_map()
+map.move_hero("right")
+map.print_map()
+map.move_hero("right")
+map.print_map()
