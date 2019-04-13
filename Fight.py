@@ -8,7 +8,7 @@ class Fight:
     def fight_simulator(hero, enemy, attack_range, direction):
         if type(hero) != Hero or type(enemy) != Enemy:
             raise ValueError("Those types can't fight!")
-        print('A fight is started between our {} and {}!'.format(hero, enemy))
+        print('\nA fight is started between our {} and {}!\n'.format(hero, enemy))
        
         def has_spell_or_weapon(attacker, defender, attack_range):
             if attacker.can_cast():
