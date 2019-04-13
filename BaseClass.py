@@ -13,20 +13,20 @@ class BaseClass:
     def attack(self,s):
         if(s == "weapon"):
             if(self.weapon == None):
-                return "The Hero doesn't have any weapon"
+                raise Exception("The Hero doesn't have any weapon")
             else:
                 return self.weapon.damage
         elif(s == "spell"):
             if(self.spell== None):
                 raise Exception("The Hero doesn't have any spell")
-                return 0
+                
 
             else:
                 
                 if(not self.can_cast()):
                     
-                    print("Not enough mana for spell")
-                    return 
+                    raise Exception("Not enough mana for spell")
+                    
                 else:
                     self.current_mana -= self.spell.mana_cost
                     return self.spell.damage

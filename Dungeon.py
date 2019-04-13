@@ -45,8 +45,7 @@ class Dungeon:
         if(not check_is_there_starting_point):
             print ("There not any more spawning points")
             return 
-    def hero_attack(self):
-        pass
+  
     def move_hero(self,direction):
         old_cordX = 0
         old_cordY = 0 
@@ -63,6 +62,7 @@ class Dungeon:
 
 
         if(not self.hero.is_alive()):
+            print("Game over")
             return
         if(direction == "right"):
             new_cordX = old_cordX + 1
@@ -203,6 +203,9 @@ class Dungeon:
         if is_dot:
             self.map[is_dot[0]][is_dot[1]] = '.'
 
+        else:
+            print("Game over")
+            return
 h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
 w = Weapon(name="The Axe of Destiny", damage=20)
 h.equip(w)
@@ -213,22 +216,16 @@ map.spawn(h)
 map.print_map()
 map.move_hero("right")
 map.print_map()
-print('Hero_before_attack')
-map.hero_attack()
-
-map.move_hero("down")
-map.print_map()
-map.hero_attack()
-map.move_hero("down")
-map.hero_attack()
-
-map.move_hero("down")
 map.move_hero("right")
 map.print_map()
-map.move_hero("up")
+map.move_hero("down")
+map.print_map()
+map.move_hero("down")
+map.print_map()
+map.move_hero("down")
+map.print_map()
+map.move_hero("down")
 map.print_map()
 map.move_hero("right")
-map.move_hero("right")
-map.move_hero("up")
-map.move_hero("right")
+map.print_map()
 map.move_hero("right")
