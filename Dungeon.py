@@ -155,52 +155,80 @@ class Dungeon:
             if len(tuple_spell)  == 4:
                 random_enemy = Enemy(tuple_enemy[0], tuple_enemy[1], tuple_enemy[2])
                 random_enemy.learn(Spell(tuple_spell[0], tuple_spell[1], tuple_spell[2], tuple_spell[3]))
-            else:
+            elif len(tuple_spell)  == 2:
                 random_enemy = Enemy(tuple_enemy[0], tuple_enemy[1], tuple_enemy[2])
                 random_enemy.equip(Weapon(tuple_spell[0], tuple_spell[1]))
+            else:
+                raise ValueError('Hero_attackError')
 
-        def can_attack(cast_range):
+        def while_cast_range(cast_range, expr_y, expr_x, direction):
+            _x, _y = x, y
             i = 0
             while i <= cast_range:
-                if self.map[y][x + i] == 'E':
-                    if Fight().fight_simulator(self.hero, random_enemy, i, 'left'):
-                        return (y, x + i)
-                    return False
-                elif self.map[y + i][x] == 'E':
-                    if Fight().fight_simulator(self.hero, random_enemy, i, 'up'):
-                        return (y + i, x)
-                    return False
-                elif self.map[y][x - i] == 'E':
-                    if Fight().fight_simulator(self.hero, random_enemy, i, 'right'):
-                        return (y, x - i)
-                    return False
-                elif self.map[y - i][x] == 'E':
-                    if Fight().fight_simulator(self.hero, random_enemy, i, 'down'):
-                         return (y - i, x)
+                temp_y = eval(expr_y)
+                temp_x = eval(expr_x)
+                if temp_x >= 0 and temp_x < len(self.map[0]) and temp_y >= 0 and temp_y < len(self.map):
+                    if self.map[temp_y][temp_x] == '#':
+                        return False
+                    if self.map[temp_y][temp_x] == 'E':
+                        if Fight().fight_simulator(self.hero, random_enemy, i, direction):
+                            return (temp_y, temp_x)
+                else:
                     return False
                 i += 1
-            print('No enemy within range')
+            #i -= 1
             return False
+
+        def can_attack(cast_range):
+            can_attack_right = while_cast_range(cast_range, 'y', 'x+i', 'left')
+            if can_attack_right:
+                return can_attack_right
+            can_attack_left = while_cast_range(cast_range, 'y', 'x-i', 'right')
+            if can_attack_left:
+                return can_attack_left
+            can_attack_up = while_cast_range(cast_range, 'y-i', 'x', 'down')
+            if can_attack_up:
+                return can_attack_up
+            can_attack_down = while_cast_range(cast_range, 'y+i', 'x', 'up')
+            if can_attack_down:
+                return can_attack_down
+            if self.hero.is_alive():
+                print('No enemy within range!')
+            return False
+
         cast_range = 0
         if self.hero.spell != None:
             cast_range = self.hero.spell.cast_range
-        dot =  can_attack(cast_range)
-        if dot:
-            self.map[dot[0]][dot[1]] = '.'
+        is_dot =  can_attack(cast_range)
+        if is_dot:
+            self.map[is_dot[0]][is_dot[1]] = '.'
 
 h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
 w = Weapon(name="The Axe of Destiny", damage=20)
 h.equip(w)
-s = Spell(name="Fireball", damage=30, mana_cost=50, cast_range=2)
+s = Spell(name="Fireball", damage=30, mana_cost=50, cast_range=4)
 h.learn(s)
-map = Dungeon("level1.txt")
+map = Dungeon("level2.txt")
 map.spawn(h)
 map.print_map()
 map.move_hero("right")
+map.print_map()
+print('Hero_before_attack')
+map.hero_attack()
+
 map.move_hero("down")
 map.print_map()
+map.hero_attack()
 map.move_hero("down")
+map.hero_attack()
+
 map.move_hero("down")
 map.move_hero("right")
 map.print_map()
+map.move_hero("up")
+map.print_map()
+map.move_hero("right")
+map.move_hero("right")
+map.move_hero("up")
+map.move_hero("right")
 map.move_hero("right")

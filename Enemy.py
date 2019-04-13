@@ -9,6 +9,9 @@ class Enemy(BaseClass):
         self.cord_x = None
         self.cord_Y = None
 
+    def __str__(self):
+        return 'Enemy(health={}, mana={}, damage={})'.format(self.health, self.mana, self.damage)
+
 
 
 

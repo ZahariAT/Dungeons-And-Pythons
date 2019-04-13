@@ -26,5 +26,4 @@ class Hero(BaseClass):
 
 
     def __str__(self):
-        s = super().__str__()
-        return s + self.spell.__str__() + self.weapon.__str__()
+        return 'Hero(health={}, mana={})'.format(self.current_health, self.current_mana)
