@@ -30,27 +30,30 @@ class Fight:
 
         while hero.is_alive() and enemy.is_alive():
             if not has_spell_or_weapon(hero, enemy, attack_range):
-                print('Hero is not well equipt.')
+                print('Hero is not equipt.')
             if enemy.is_alive():
                 if not enemy.can_cast():
                     if attack_range >= 1 :  
                         attack_range -= 1
-                        print('Enemy moved one step to the {}.'.format(direction))
+                        print('Enemy moved one step to the {} in order to get to the hero. This is his move.'.format(direction))
                     else:
                         if not has_spell_or_weapon(enemy, hero, attack_range):
                             hero.take_damage(enemy.damage)
-                            print('Enemy attacked!')
+                            print('Enemy attacked with bare hands like real man!Enemy hits Hero for {d} dmg. Hero health is {h}'.format(d = enemy.damage, h = hero.current_health))
                 elif enemy.can_cast():
                     if enemy.spell.cast_range >= attack_range:
                         enemy.attack('spell')
                         hero.take_damage(enemy.spell.damage)
                         print('Enemy casts a {}!'.format(enemy.spell.name ))
+                    else:  
+                        attack_range -= 1
+                        print('Enemy moved one step to the {} in order to get to the hero. This is his move.'.format(direction))
                 else:
                     if not has_spell_or_weapon(enemy, hero, attack_range):
                         hero.take_damage(enemy.damage)
                         print('Enemy attacked!')
             else:
-                print('Enemy is dead')
+                print('Enemy is dead!\n')
                 return True
-        print('Hero is dead :( ')
+        print('Hero is dead :( \n')
         return False
