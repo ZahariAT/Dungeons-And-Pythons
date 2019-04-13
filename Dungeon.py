@@ -159,6 +159,9 @@ class Dungeon:
 
 
     def hero_attack(self, by=None):
+        if not self.hero.is_alive():
+            print('Game over!')
+            return
         for y, order in enumerate(self.map):
             for x in range(len(order)):
                 if self.map[y][x] == 'H':
