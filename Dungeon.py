@@ -103,6 +103,7 @@ class Dungeon:
         print(new_cordY,new_cordX)
 
         if(self.map[old_cordY][old_cordX] == "S"):
+            pass
         if(self.map[new_cordY][new_cordX] == "."):
             self.map[new_cordY][new_cordX] = "H"
             self.map[old_cordY][old_cordX] = "."
