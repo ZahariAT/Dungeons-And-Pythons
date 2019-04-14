@@ -8,10 +8,10 @@ import type_checker
 
 
 all_treasures = ["Mana potion","Health potion","Mana potion","Health potion","Mana potion","Health potion",("Expecto Patronum",40,50,3),("The Axe of Destiny",30),
-("Accio",20,30,2),("Holy Carver",20),("Wingardium Leviosa",30,40,1),("Blade of a Thousand Cuts",40)]
+("Accio",20,30,2),("Holy Carver",20),("Wingardium Leviosa",30,40,1),("Blade of a Thousand Cuts",40), ('The Pina colada Song', 40, 60, 4), ('Thriller', 25), ('Makarena', 45), ('Hooked on a feeling', 60, 50, 1)]
 
 
-enemies = [(130,40,20),(110,20,30),(111,100,40),(170,120,10),(160,80,30)]
+enemies = [(130,40,20),(80,80,20),(111,100,10),(170,40,10),(80,60,25)]
 
 is_span_point_hidden = False
 class Dungeon:
@@ -190,7 +190,7 @@ class Dungeon:
             if self.map[y][x] == "H":
                 break
         tuple_enemy = enemies[randint(0, len(enemies) - 1)]
-        if randint(0, 10) < 8: #10 - 2*global var which will tell on which level we are
+        if randint(0, 10) < (8 if self.file_name == 'level1.txt' else 5): #10 - 2*global var which will tell on which level we are
             random_enemy = Enemy(tuple_enemy[0], tuple_enemy[1], tuple_enemy[2])
         else:
             tuple_spell = all_treasures[randint(6, len(all_treasures) - 1)]
@@ -205,10 +205,12 @@ class Dungeon:
 
         def while_cast_range(cast_range, expr_y, expr_x, direction):
             _x, _y = x, y
+            print(self.coord_Y, self.coord_X)
             i = 0
             while i <= cast_range:
                 temp_y = eval(expr_y)
                 temp_x = eval(expr_x)
+                print('\n',temp_y, temp_x, i, cast_range, '<<<<<<\n')
                 if temp_x >= 0 and temp_x < len(self.map[0]) and temp_y >= 0 and temp_y < len(self.map):
                     if self.map[temp_y][temp_x] == '#':
                         return False
@@ -261,9 +263,9 @@ if __name__ == '__main__':
     map.print_map()
     map.move_hero("down")
     map.print_map()
-    map.hero_attack()
+  #  map.hero_attack()
     print('\n1111111\n')
-    # If hero dies here he respawns in print 2222222
+    # If hero dies here he respawns in print 2222222 and if he daies there, he respawns in 333333
     map.move_hero("down")
     map.print_map()
     map.move_hero("right")
