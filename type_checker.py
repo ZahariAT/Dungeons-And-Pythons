@@ -17,7 +17,7 @@ def type_checker(*types):
             temp = kwargs.values()
             values = iter(temp)
             for i in range(len(types)):
-                if len(argv) != 0:
+                if len(argv) > i:
                     if type(argv[i]) != types[i]:
                         raise ValueError('In {} not correct types are given!'.format(func.__name__))
                 elif len(kwargs) != 0:
