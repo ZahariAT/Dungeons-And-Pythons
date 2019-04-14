@@ -13,5 +13,8 @@ class testWeapon(unittest.TestCase):
         with self.assertRaises(ValueError):
             Weapon(name='who let', damage=30) > 3
 
+    def test__str__(self):
+        self.assertEqual('Weapon is Smooth criminal with damage: 1', str(Weapon('Smooth criminal', 1)))
+
 if __name__=='__main__':
     unittest.main()

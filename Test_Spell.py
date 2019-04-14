@@ -13,5 +13,8 @@ class testSpell(unittest.TestCase):
         with self.assertRaises(ValueError):
             Spell(name='who let', damage=30, mana_cost=30, cast_range=30) > 3
 
+    def test__str__(self):
+        self.assertEqual('Spell is Smooth criminal with damage: 1, cost: 1, range: 1', str(Spell('Smooth criminal', 1, 1, 1)))
+
 if __name__=='__main__':
     unittest.main()
