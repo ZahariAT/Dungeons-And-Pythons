@@ -12,19 +12,17 @@ all_treasures = ["Mana potion","Health potion","Mana potion","Health potion","Ma
 
 enemies = [(130,40,20),(110,20,30),(111,100,40),(170,120,10),(160,80,30)]
 
-is_span_point_hidden = False
+
 class Dungeon:
     def __init__(self,file_name):
         self.map = []
-        self.file_name = file_name
-        with open(self.file_name) as f:
+        with open(file_name) as f:
             for line in f.readlines():
                 self.map.append(list(line))
         self.lst_treasures = []
         self.hero = None
 
-        #f.close()
-    
+
     def print_map(self):
         if(len(self.map) == 0):
             self.map = matrix
@@ -34,8 +32,6 @@ class Dungeon:
             for el in lst:
                 print(el,end = "")          
     def spawn(self,hero):
-        current_x = 0
-        current_y = 0
         if(self.hero == None):
 
             self.hero = hero
@@ -46,27 +42,21 @@ class Dungeon:
                 if(el == "S"):
                     check_is_there_starting_point = True
                     self.map[index][ind] = "H"
-                    current_y = index
-                    current_x = ind
                     to_break = True
+            
 
             if(to_break):
                 break
 
-        for y,lst in enumerate(self.map):
-            for x,el in enumerate(lst):
-                if(el == "H"):
-                    if(current_x > x or current_y > y):
-                        self.map[y][x] = "." 
 
-        self.hero.current_health = self.hero.health
-        self.hero.current_mana = self.hero.mana 
+
         if(not check_is_there_starting_point):
             print ("There not any more spawning points")
             return 
 
 
 
+  
     def move_hero(self,direction):
         old_cordX = 0
         old_cordY = 0 
@@ -82,8 +72,6 @@ class Dungeon:
         new_cordY = old_cordY
 
 
-        global is_span_point_hidden
-        
         if(not self.hero.is_alive()):
             print("Game over")
             return
@@ -113,23 +101,18 @@ class Dungeon:
             return False
 
         print(new_cordY,new_cordX)
-        if(is_span_point_hidden):
-            self.map[new_cordY][new_cordX] = "H"
-            self.map[old_cordY][old_cordX] = "S"
-            is_span_point_hidden = False
-            return
+
+        if(self.map[old_cordY][old_cordX] == "S"):
+            pass
         if(self.map[new_cordY][new_cordX] == "."):
-            
             self.map[new_cordY][new_cordX] = "H"
             self.map[old_cordY][old_cordX] = "."
         elif(self.map[new_cordY][new_cordX] == "#"):
             print("There is obstacle")
             return
-        elif(self.map[new_cordY][new_cordX] == "S"):
+        elif(self.map[new_cordY][new_cordX == "S"]):
             #to finish
-            self.map[new_cordY][new_cordX] = "H"
-            self.map[old_cordY][old_cordX] = "."
-            is_span_point_hidden = True
+            self.map[new_cordX][new_cordX] = "H"
         elif(self.map[new_cordY][new_cordX] == "T"):
             rand_number = randint(0,len(all_treasures) - 1)
             print(rand_number)
@@ -159,7 +142,6 @@ class Dungeon:
             self.coord_Y = new_cordY
         elif(self.map[new_cordY][new_cordX] == "G"):
             print("The hero have reached the final of this level!")
-            self.__init__("level2.txt")
             return
         elif(self.map[new_cordY][new_cordX] == "E"):
             self.hero_attack()
@@ -251,7 +233,7 @@ w = Weapon(name="The Axe of Destiny", damage=20)
 h.equip(w)
 s = Spell(name="Fireball", damage=30, mana_cost=50, cast_range=4)
 h.learn(s)
-map = Dungeon("level1.txt")
+map = Dungeon("level2.txt")
 map.spawn(h)
 map.print_map()
 map.move_hero("right")
@@ -267,44 +249,6 @@ map.print_map()
 map.move_hero("right")
 map.print_map()
 map.move_hero("right")
-map.print_map()
-map.move_hero("right")
-map.print_map()
-map.move_hero("up")
-map.print_map()
-map.move_hero("up")
-map.print_map()
-map.move_hero("up")
-map.print_map()
-map.move_hero("right")
-map.print_map()
-map.move_hero("right")
-map.print_map()
-map.move_hero("right")
-map.print_map()
-map.move_hero("right")
-map.print_map()
-map.move_hero("down")
-map.print_map()
-map.move_hero("down")
-map.print_map()
-map.move_hero("down")
-map.print_map()
-map.move_hero("down")
-map.print_map()
-map.spawn(h)
-map.print_map()
-map.move_hero("right")
-map.print_map()
-map.move_hero("down")
-map.print_map()
-map.move_hero("down")
-map.print_map()
-map.move_hero("down")
-map.print_map()
-map.move_hero("down")
-map.print_map()
-map.spawn(h)
 map.print_map()
 map.move_hero("right")
 map.print_map()
