@@ -4,6 +4,7 @@ from Spell import Spell
 from random import *
 from Fight import Fight
 from Enemy import Enemy
+import type_checker
 
 
 all_treasures = ["Mana potion","Health potion","Mana potion","Health potion","Mana potion","Health potion",("Expecto Patronum",40,50,3),("The Axe of Destiny",30),
@@ -14,6 +15,7 @@ enemies = [(130,40,20),(110,20,30),(111,100,40),(170,120,10),(160,80,30)]
 
 
 class Dungeon:
+    @type_checker.type_checker(str)
     def __init__(self,file_name):
         self.map = []
         with open(file_name) as f:
@@ -193,7 +195,7 @@ class Dungeon:
                     if self.map[temp_y][temp_x] == '#':
                         return False
                     if self.map[temp_y][temp_x] == 'E':
-                        if Fight().fight_simulator(self.hero, random_enemy, i, direction):
+                        if Fight().fight_simulator(hero=self.hero, enemy=random_enemy, attack_range=i, direction=direction):
                             return (temp_y, temp_x)
                 else:
                     return False
@@ -228,8 +230,9 @@ class Dungeon:
         else:
             print("Game over")
             return
-h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
 w = Weapon(name="The Axe of Destiny", damage=20)
+
+h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
 h.equip(w)
 s = Spell(name="Fireball", damage=30, mana_cost=50, cast_range=4)
 h.learn(s)
@@ -242,6 +245,7 @@ map.move_hero("down")
 map.print_map()
 map.move_hero("down")
 map.print_map()
+map.hero_attack()
 map.move_hero("down")
 map.print_map()
 map.move_hero("right")

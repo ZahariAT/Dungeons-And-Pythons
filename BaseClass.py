@@ -1,4 +1,7 @@
+import type_checker
+
 class BaseClass:
+    @type_checker.type_checker(int, int)
     def __init__(self,health,mana):
         self.health = health
         self.mana = mana
@@ -9,7 +12,7 @@ class BaseClass:
         self.coord_X = None
         self.coord_Y = None 
    
-
+    @type_checker.type_checker(str)
     def attack(self,s):
         if(s == "weapon"):
             if(self.weapon == None):

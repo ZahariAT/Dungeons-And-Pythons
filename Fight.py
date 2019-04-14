@@ -2,12 +2,15 @@ from Hero import Hero
 from Enemy import Enemy
 from Weaponclass import Weapon
 from Spell import Spell
+import type_checker
 
 class Fight:
-    @staticmethod
-    def fight_simulator(hero, enemy, attack_range, direction):
-        if type(hero) != Hero or type(enemy) != Enemy:
-            raise ValueError("Those types can't fight!")
+    #@staticmethod
+    @classmethod
+    @type_checker.type_checker(Hero, Enemy, int, str)
+    def fight_simulator(cls, hero, enemy, attack_range, direction):
+#        if type(hero) != Hero or type(enemy) != Enemy:
+ #           raise ValueError("Those types can't fight!")
         print('\nA fight is started between our {} and {}!\n'.format(hero, enemy))
        
         def has_spell_or_weapon(attacker, defender, attack_range):

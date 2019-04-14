@@ -1,7 +1,8 @@
+import type_checker
+
 class Weapon:
+    @type_checker.type_checker(str, int)
     def __init__(self, name, damage):
-        if type(name) != str or type(damage) != int:
-            raise ValueError('Not correct type!')
         self.name = name
         self.damage = damage
 

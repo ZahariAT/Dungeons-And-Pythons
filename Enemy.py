@@ -1,7 +1,8 @@
 from BaseClass import BaseClass
-
+import type_checker
 
 class Enemy(BaseClass):
+    @type_checker.type_checker(int, int, int)
     def __init__(self,health, mana, damage):
 
         BaseClass.__init__(self,health,mana)
@@ -10,7 +11,7 @@ class Enemy(BaseClass):
         self.cord_Y = None
 
     def __str__(self):
-        return 'Enemy(health={}, mana={}, damage={})'.format(self.health, self.mana, self.damage)
+        return 'Enemy(health={}, mana={}, damage={})'.format(self.current_health, self.current_mana, self.damage)
 
 
 
