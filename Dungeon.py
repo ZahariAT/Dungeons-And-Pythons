@@ -244,10 +244,6 @@ class Dungeon:
         is_dot =  can_attack(cast_range)
         if is_dot:
             self.map[is_dot[0]][is_dot[1]] = '.'
-
-        else:
-            print("Game over")
-            return
 w = Weapon(name="The Axe of Destiny", damage=20)
 
 h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
