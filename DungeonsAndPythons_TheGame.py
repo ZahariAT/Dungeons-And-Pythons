@@ -24,7 +24,7 @@ class TheGame:
         map.spawn(h)
         map.print_map()
         input_data = input("\nType w/s/a/d to move your hero up/down/left/right\
-, f for fight, spawn for spawn, status to show hero's status or e for exitd: ")
+, f for fight, spawn for spawn, status to show hero's status, u for update spell/weapon or e for exitd: ")
         while(input_data != 'e'):
             if input_data in command_list[0].keys():
                 map.move_hero(command_list[0][input_data])
@@ -38,7 +38,7 @@ class TheGame:
             elif input_data == command_list[3]:
                 print('\n',h, h.weapon, h.spell)
             elif input_data == command_list[4]:
-                which = input('Spell or weapon: ')
+                which = input('Type spell/weapon: ')
                 print('Are you sure. You have {} and the update is 20. Type y or n:'.format(map.hero.money))
                 result = input()
                 if result == 'y':
@@ -47,11 +47,11 @@ class TheGame:
                     print('Update not successful')
             elif input_data =='m':
                 print("\nType w/s/a/d to move your hero up/down/left/right\
-, f for fight, spawn for spawn, status to show hero's status or e for exit")
+, f for fight, spawn for spawn, status to show hero's status, u for update spell/weapon or e for exit")
 
             else:
                 print('Comming soon!')
-                print('Type m to see the command menu.')
+                print('Type m to see the curret command menu.')
             print('\n')
             input_data = input('Command: ')
 

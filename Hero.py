@@ -49,6 +49,9 @@ class Hero(BaseClass):
                     print('Not enough money!')
             else:
                 print("You don't have this equipment")
+        elif which == 'spell/weapon':
+            print('Oh, you think you funny! Well congratulations you found an eastern egg!')
+            print('This game was made by two friends Zahari and Whatislove. Sponsored by HackBulgaria!')
         else:
             print("You don't have this equipment")
 

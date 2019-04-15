@@ -205,7 +205,7 @@ class Dungeon:
 
         def while_cast_range(cast_range, expr_y, expr_x, direction):
             _x, _y = x, y
-            print(self.coord_Y, self.coord_X)
+            #print(self.coord_Y, self.coord_X)
             i = 0
             while i <= cast_range:
                 temp_y = eval(expr_y)
