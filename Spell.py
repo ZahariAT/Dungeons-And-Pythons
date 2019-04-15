@@ -7,6 +7,7 @@ class Spell:
         self.damage = damage
         self.mana_cost = mana_cost
         self.cast_range = cast_range
+        self.update_cost = 20
 
     def __str__(self):
         return 'Spell is {} with damage: {}, cost: {}, range: {}'.format(self.name, self.damage, self.mana_cost, self.cast_range)

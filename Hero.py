@@ -31,9 +31,10 @@ class Hero(BaseClass):
     def update(self, which):
         if which == 'weapon':
             if self.weapon != None:
-                if self.money >= 20: # money > weapon.update_cost
-                    self.money -= 20
+                if self.money >= self.weapon.update_cost: # money > weapon.update_cost
+                    self.money -= self.weapon.update_cost
                     self.weapon.damage += 10
+                    self.weapon.update_cost += 20
                     print('Update successful!')
                 else:
                     print('Not enough money!')
@@ -41,8 +42,9 @@ class Hero(BaseClass):
                 print("You don't have this equipment")
         elif which == 'spell':
             if self.spell != None:
-                if self.money >= 20: # money > spell.update_cost
-                    self.money -= 20
+                if self.money >= self.spell.update_cost: # money > spell.update_cost
+                    self.money -= self.spell.update_cost
+                    self.spell.update_cost += 20
                     self.spell.damage += 10
                     print('Update successful!')
                 else:
@@ -50,8 +52,8 @@ class Hero(BaseClass):
             else:
                 print("You don't have this equipment")
         elif which == 'spell/weapon':
-            print('Oh, you think you funny! Well congratulations you found an eastern egg!')
-            print('This game was made by two friends Zahari and Whatislove. Sponsored by HackBulgaria!')
+            print('Oh, you think out of the box! Well congratulations you found this message thanks to:')
+            print('Whatislove and Zahari. Sponsored by HackBulgaria!')
         else:
             print("You don't have this equipment")
 

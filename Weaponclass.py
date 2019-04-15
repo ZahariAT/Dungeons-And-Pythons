@@ -5,6 +5,7 @@ class Weapon:
     def __init__(self, name, damage):
         self.name = name
         self.damage = damage
+        self.update_cost = 20
 
     def __str__(self):
         return 'Weapon is {} with damage: {}'.format(self.name, self.damage)

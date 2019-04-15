@@ -217,7 +217,8 @@ class Dungeon:
                 raise ValueError('Hero_attackError')
 
         def while_cast_range(cast_range, expr_y, expr_x, direction):
-            _x, _y = x, y
+            x = self.hero.coord_X
+            y = self.hero.coord_Y
 
             print(self.hero.coord_Y, self.hero. coord_X,"++++++++++++++")
             i = 0
@@ -230,7 +231,7 @@ class Dungeon:
                         return False
                     if self.map[temp_y][temp_x] == 'E':
                         if Fight().fight_simulator(hero=self.hero, enemy=random_enemy, attack_range=i, direction=direction):
-                            return (True,temp_y, temp_x)
+                            return (temp_y, temp_x)
                 else:
                     return False
                 i += 1
@@ -240,15 +241,23 @@ class Dungeon:
         def can_attack(cast_range):
             can_attack_right = while_cast_range(cast_range, 'y', 'x+i', 'left')
             if can_attack_right:
+                self.hero.money += 20
+                self.map[can_attack_right[0]][can_attack_right[1]] = '.'
                 return can_attack_right
             can_attack_left = while_cast_range(cast_range, 'y', 'x-i', 'right')
             if can_attack_left:
+                self.hero.money += 20
+                self.map[can_attack_left[0]][can_attack_left[1]] = '.'
                 return can_attack_left
             can_attack_up = while_cast_range(cast_range, 'y-i', 'x', 'down')
             if can_attack_up:
+                self.hero.money += 20
+                self.map[can_attack_up[0]][can_attack_up[1]] = '.'
                 return can_attack_up
             can_attack_down = while_cast_range(cast_range, 'y+i', 'x', 'up')
             if can_attack_down:
+                self.hero.money += 20
+                self.map[can_attack_down[0]][can_attack_down[1]] = '.'
                 return can_attack_down
             if self.hero.is_alive():
                 print('No enemy within range!')
@@ -258,9 +267,6 @@ class Dungeon:
         if self.hero.can_cast():
             cast_range = self.hero.spell.cast_range
         is_dot =  can_attack(cast_range)
-        if is_dot:
-            self.hero.money += 20
-            self.map[is_dot[0]][is_dot[1]] = '.'
 
 if __name__ == '__main__':
     w = Weapon(name="The Axe of Destiny", damage=20)
