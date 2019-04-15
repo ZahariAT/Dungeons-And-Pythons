@@ -53,6 +53,8 @@ class Dungeon:
                 if(el == "S"):
                     check_is_there_starting_point = True
                     self.map[index][ind] = "H"
+                    self.hero.current_health = self.hero.health
+                    self.hero.current_mana = self.hero.mana 
                     current_y = index
                     current_x = ind
                     to_break = True
@@ -66,8 +68,7 @@ class Dungeon:
                     if(current_x > x or current_y > y):
                         self.map[y][x] = "." 
 
-        self.hero.current_health = self.hero.health
-        self.hero.current_mana = self.hero.mana 
+ 
         if(not check_is_there_starting_point):
             print ("There not any more spawning points")
             return 
@@ -155,11 +156,18 @@ class Dungeon:
                     print("The hero's mana is full")
             elif(len(all_treasures[rand_number]) == 2):
                 weap = Weapon(all_treasures[rand_number][0],all_treasures[rand_number][1])
-                self.hero.weapon = weap
+                
+                if(weap > self.hero.weapon):
+                    self.hero.weapon = weap
 
                 print("hero has new weapon")
             elif(len(all_treasures[rand_number]) == 4):
                 sp = Spell(all_treasures[rand_number][0],all_treasures[rand_number][1],all_treasures[rand_number][2],all_treasures[rand_number][3])
+                if(self.hero.spell is None):
+                    self.hero.spell = sp
+                elif(sp > self.hero.spell ):
+                    self.hero.spell = sp
+
                 self.hero.spell = sp
                 print("hero has new spell")
             else:
@@ -177,7 +185,8 @@ class Dungeon:
         elif(self.map[new_cordY][new_cordX] == "E"):
             self.hero.coord_Y = new_cordY
             self.hero.coord_X = new_cordX
-            self.hero_attack()
+            if not self.hero_attack():
+                return
             if(self.hero.is_alive()):
                 self.map[new_cordY][new_cordX] = "H"
                 self.map[old_cordY][old_cordX] = "."
@@ -191,11 +200,10 @@ class Dungeon:
             self.hero.current_mana += self.hero.mana_regeneration_rate
 
 
-
     def hero_attack(self, by=None):
         if not self.hero.is_alive():
             print('Game over!')
-            return
+            return False
         for y, order in enumerate(self.map):
             for x in range(len(order)):
                 if self.map[y][x] == 'H':
@@ -266,7 +274,7 @@ class Dungeon:
         cast_range = 0
         if self.hero.can_cast():
             cast_range = self.hero.spell.cast_range
-        is_dot =  can_attack(cast_range)
+        return  can_attack(cast_range)
 
 if __name__ == '__main__':
     w = Weapon(name="The Axe of Destiny", damage=20)
