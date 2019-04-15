@@ -245,6 +245,7 @@ class Dungeon:
             cast_range = self.hero.spell.cast_range
         is_dot =  can_attack(cast_range)
         if is_dot:
+            self.hero.money += 20
             self.map[is_dot[0]][is_dot[1]] = '.'
 
 if __name__ == '__main__':
@@ -270,6 +271,7 @@ if __name__ == '__main__':
     map.print_map()
     map.move_hero("right")
     map.print_map()
+    print(h.money)
     map.move_hero("right")
     map.print_map()
     map.move_hero("right")
