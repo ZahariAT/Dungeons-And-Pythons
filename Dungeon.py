@@ -38,11 +38,16 @@ class Dungeon:
     def spawn(self,hero):
         current_x = 0
         current_y = 0
+        has_now_the_game_started = False
         if(self.hero == None):
 
             self.hero = hero
+            has_now_the_game_started = True
         check_is_there_starting_point = False
         to_break = False
+
+        if(self.hero.is_alive() and not has_now_the_game_started):
+            return
         for index,lst in enumerate(self.map):
             for ind,el in enumerate(lst):
                 if(el == "S"):
@@ -119,16 +124,22 @@ class Dungeon:
             self.map[new_cordY][new_cordX] = "H"
             self.map[old_cordY][old_cordX] = "S"
             is_span_point_hidden = False
+            self.hero.coord_Y = new_cordY
+            self.hero.coord_X = new_cordX
             return
         if(self.map[new_cordY][new_cordX] == "."):
             
             self.map[new_cordY][new_cordX] = "H"
             self.map[old_cordY][old_cordX] = "."
+            self.hero.coord_Y = new_cordY
+            self.hero.coord_X = new_cordX
         elif(self.map[new_cordY][new_cordX] == "#"):
             print("There is obstacle")
             return
         elif(self.map[new_cordY][new_cordX] == "S"):
             #to finish
+            self.hero.coord_Y = new_cordY
+            self.hero.coord_X = new_cordX
             self.map[new_cordY][new_cordX] = "H"
             self.map[old_cordY][old_cordX] = "."
             is_span_point_hidden = True
@@ -157,13 +168,15 @@ class Dungeon:
 
             self.map[new_cordY][new_cordX] = "H"
             self.map[old_cordY][old_cordX] = "."
-            self.coord_X = new_cordX
-            self.coord_Y = new_cordY
+            self.hero.coord_X = new_cordX
+            self.hero.coord_Y = new_cordY
         elif(self.map[new_cordY][new_cordX] == "G"):
             print("The hero have reached the final of this level!")
             self.__init__("level2.txt")
             return
         elif(self.map[new_cordY][new_cordX] == "E"):
+            self.hero.coord_Y = new_cordY
+            self.hero.coord_X = new_cordX
             self.hero_attack()
             if(self.hero.is_alive()):
                 self.map[new_cordY][new_cordX] = "H"
@@ -205,7 +218,8 @@ class Dungeon:
 
         def while_cast_range(cast_range, expr_y, expr_x, direction):
             _x, _y = x, y
-            #print(self.coord_Y, self.coord_X)
+
+            print(self.hero.coord_Y, self.hero. coord_X,"++++++++++++++")
             i = 0
             while i <= cast_range:
                 temp_y = eval(expr_y)
@@ -216,7 +230,7 @@ class Dungeon:
                         return False
                     if self.map[temp_y][temp_x] == 'E':
                         if Fight().fight_simulator(hero=self.hero, enemy=random_enemy, attack_range=i, direction=direction):
-                            return (temp_y, temp_x)
+                            return (True,temp_y, temp_x)
                 else:
                     return False
                 i += 1
@@ -254,8 +268,8 @@ if __name__ == '__main__':
     h = Hero(name="Bron", title="Dragonslayer", health=100, mana=100, mana_regeneration_rate=2)
     h.equip(w)
     s = Spell(name="Fireball", damage=30, mana_cost=50, cast_range=4)
-    h.learn(s)
-    map = Dungeon("level1.txt")
+    #   h.learn(s)
+    map = Dungeon("level2.txt")
     map.spawn(h)
     map.print_map()
     map.move_hero("right")
@@ -264,23 +278,11 @@ if __name__ == '__main__':
     map.print_map()
     map.move_hero("down")
     map.print_map()
-  #  map.hero_attack()
-    print('\n1111111\n')
-    # If hero dies here he respawns in print 2222222 and if he daies there, he respawns in 333333
     map.move_hero("down")
     map.print_map()
-    map.move_hero("right")
+    map.move_hero("down")
     map.print_map()
-    print(h.money)
-    map.move_hero("right")
-    map.print_map()
-    map.move_hero("right")
-    map.print_map()
-    map.move_hero("right")
-    map.print_map()
-    map.move_hero("up")
-    map.print_map()
-    map.move_hero("up")
+    map.spawn(h)
     map.print_map()
     map.move_hero("up")
     map.print_map()
@@ -292,37 +294,7 @@ if __name__ == '__main__':
     map.print_map()
     map.move_hero("right")
     map.print_map()
-    map.move_hero("down")
+    map.move_hero("up")
     map.print_map()
-    map.move_hero("down")
-    map.print_map()
-    map.move_hero("down")
-    map.print_map()
-    map.move_hero("down")
-    map.print_map()
-    print('\n2222222222\n')
-
     # Hero respawns here if he died in level1 but shoud not
     
-    map.spawn(h)
-    
-    print(h.current_health)   #hero is dead but his current health is full....HOW, VLADIMIRE?
-    
-    map.print_map()
-    map.move_hero("right")
-    map.print_map()
-    map.move_hero("down")
-    map.print_map()
-    map.move_hero("down")
-    map.print_map()
-    map.move_hero("down")
-    map.print_map()
-    map.move_hero("down")
-    map.print_map()
-    print('\n33333331\n')
-    map.spawn(h)
-    map.print_map()
-    map.move_hero("right")
-    map.print_map()
-    map.hero_attack()
-    map.print_map()
