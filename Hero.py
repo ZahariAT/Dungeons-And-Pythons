@@ -2,6 +2,9 @@ from BaseClass import BaseClass
 from Weaponclass import Weapon
 from Spell import Spell
 import type_checker
+from random import *
+
+quotes = ['The way get started is to quit talking and begin doing.', 'The pessimist sees difficulty in every opportunity. The optimist sees opportunity in every difficulty.', 'Don’t let yesterday take up too much of today.', 'You learn more from failure than from success. Don’t let it stop you. Failure builds character.', 'Failure will never overtake me if my determination to succeed is strong enough.']
 
 class Hero(BaseClass):
     @type_checker.type_checker(str, str, int, int, int)
@@ -52,8 +55,9 @@ class Hero(BaseClass):
             else:
                 print("You don't have this equipment")
         elif which == 'spell/weapon':
-            print('Oh, you think out of the box! Well congratulations you found this message thanks to:')
+            print('\nOh, you think out of the box! Well congratulations you found this message thanks to:')
             print('Whatislove and Zahari. Sponsored by HackBulgaria!')
+            print('Here is a quote for you: {}'.format(quotes[randint(0, len(quotes) - 1)]))
         else:
             print("You don't have this equipment")
 
