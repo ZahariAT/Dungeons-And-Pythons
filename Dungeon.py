@@ -85,7 +85,6 @@ class Dungeon:
                     old_cordY = index
                     old_cordX = ind
                     break
-        print(old_cordY,old_cordX)
         new_cordX = old_cordX
         new_cordY = old_cordY
 
@@ -120,7 +119,6 @@ class Dungeon:
             print("Command not appropriate")
             return False
 
-        print(new_cordY,new_cordX)
         if(is_span_point_hidden):
             self.map[new_cordY][new_cordX] = "H"
             self.map[old_cordY][old_cordX] = "S"
@@ -228,12 +226,10 @@ class Dungeon:
             x = self.hero.coord_X
             y = self.hero.coord_Y
 
-            print(self.hero.coord_Y, self.hero. coord_X,"++++++++++++++")
             i = 0
             while i <= cast_range:
                 temp_y = eval(expr_y)
                 temp_x = eval(expr_x)
-                print('\n',temp_y, temp_x, i, cast_range, '<<<<<<\n')
                 if temp_x >= 0 and temp_x < len(self.map[0]) and temp_y >= 0 and temp_y < len(self.map):
                     if self.map[temp_y][temp_x] == '#':
                         return False
@@ -243,7 +239,6 @@ class Dungeon:
                 else:
                     return False
                 i += 1
-            #i -= 1
             return False
 
         def can_attack(cast_range):
