@@ -9,6 +9,8 @@ class Fight:
     @classmethod
     @type_checker.type_checker(Hero, Enemy, int, str)
     def fight_simulator(cls, hero, enemy, attack_range, direction):
+        if not hero.is_alive():
+            return False
 #        if type(hero) != Hero or type(enemy) != Enemy:
  #           raise ValueError("Those types can't fight!")
         print('\nA fight is started between our {} and {}!\n'.format(hero, enemy))
@@ -47,7 +49,8 @@ class Fight:
                     if enemy.spell.cast_range >= attack_range:
                         enemy.attack('spell')
                         hero.take_damage(enemy.spell.damage)
-                        print('Enemy casts a {}!'.format(enemy.spell.name ))
+                        print('Enemy casts a {}!Enemy hits Hero for {d} dmg. Hero health is {h}'.format(
+                        s = enemy.spell.name, d = enemy.spell.damage, h = hero.current_health))
                     else:  
                         attack_range -= 1
                         print('Enemy moved one step to the {} in order to get to the hero. This is his move.'.format(direction))
